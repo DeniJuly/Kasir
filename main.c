@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <conio.h>
 #include <string.h>
 #include <time.h>
 #include "component.h"
@@ -43,10 +44,14 @@ int main(){
             break;
         case 4:
             laporanKeuangan();
+            break;
         case 5:
             exit(0);
             break;
         default:
+            getchar();
+            printf("Kode menu tidak diketahui. klik enter untuk memasukkan kode menu lain.");
+            getchar();
             continue;
             break;
         }

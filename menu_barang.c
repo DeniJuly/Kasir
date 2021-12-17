@@ -62,7 +62,7 @@ void addBarang(){
             printf( "berhasil menyimpan perubahan !\n");
         else
             printf( "gagal menyimpan perubahan !\n");
-        printf("Apakah anda ingin keluar (Y/N) ?");
+        printf("Apakah anda ingin keluar (Y/N) ? ");
         scanf( " %c", &out);
         if(out == 'y' || out == 'Y')
             break;
@@ -107,7 +107,7 @@ void restok(){
         else
             printf( "gagal menyimpan perubahan !\n");
 
-        printf("Apakah anda ingin keluar (Y/N) ?");
+        printf("Apakah anda ingin keluar (Y/N) ? ");
         scanf( " %c", &out);
         if(out == 'y' || out == 'Y')
             break;
@@ -139,7 +139,7 @@ void delBarang(){
             printf( "berhasil menyimpan perubahan !\n");
         else
             printf( "gagal menyimpan perubahan !\n");
-        printf("Apakah anda ingin keluar (Y/N) ?");
+        printf("Apakah anda ingin keluar (Y/N) ? ");
         scanf( " %c", &out);
         if(out == 'y' || out == 'Y')
             break;
@@ -191,7 +191,7 @@ void updBarang(){
         else
             printf( "gagal menyimpan perubahan !\n");
 
-        printf("Apakah anda ingin keluar (Y/N) ?");
+        printf("Apakah anda ingin keluar (Y/N) ? ");
         scanf( " %c", &out);
         if(out == 'y' || out == 'Y')
             break;

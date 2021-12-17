@@ -31,16 +31,28 @@ void kasir(struct Barang allBarang[], int nBarang){
         }
         baris(1, 0);
         printf("Total Belanja     : %llu\n",total);
-        printf("Uang yang Dibayar : ");
-        unsigned long long uang;
-        scanf("%llu",&uang);
-        long long int kembali;
-        kembali=uang-total;
-        printf("Kembalian         : %lld\n",kembali);
-        getchar();
-        cetakStruk(allBarang,nBarang,total,uang,kembali);
-        riwayatTransaksi(allBarang, nBarang);
-        kalkulasiPendapatan(allBarang, nBarang);
+        if(total > 0){
+            unsigned long long uang;
+            while (1)
+            {
+                printf("Uang yang Dibayar : ");
+                scanf("%llu",&uang);
+                if(uang < total){
+                    printf("Uang tidak mencukupi.\n");
+                    uang = 0;
+                    continue;
+                }else{
+                    break;
+                }
+            }
+            long long int kembali;
+            kembali=uang-total;
+            printf("Kembalian         : %lld\n",kembali);
+            getchar();
+            cetakStruk(allBarang,nBarang,total,uang,kembali);
+            riwayatTransaksi(allBarang, nBarang);
+            kalkulasiPendapatan(allBarang, nBarang);
+        }
         
         printf("Transaksi lain (Y/N) ? ");
         scanf("%c", &out);
