@@ -1,18 +1,18 @@
 #include <stdio.h>
 
 void listTransaksi(struct Barang allBarang[], int nBarang){
-    int tgl_mulai=0,
-        tgl_selesai=32,
-        bln_mulai=0,
-        bln_selesai=13,
-        th_mulai=2000,
-        th_selesai=2050;
+    int tgl_mulai   =   0,
+        tgl_selesai =   32,
+        bln_mulai   =   0,
+        bln_selesai =   13,
+        th_mulai    =   2000,
+        th_selesai  =   2050;
 	while (1){
         int n=0;
         system("cls");
-        baris(2, 0);
-        judul("TOKO HASAN", 0);
-        baris(2, 0);
+        baris(1, 0);
+        judul("TOSERBA SEMBARANG", 0);
+        baris(1, 0);
         int i;
         for(i=1;i<nBarang;i++){
             allBarang[i].nBelanja=0;
@@ -25,14 +25,14 @@ void listTransaksi(struct Barang allBarang[], int nBarang){
             printf( "File tidak bisa dibuka.\n" );
         }
         printf( "|  %-4s| %-19s| %-9s| %-16s| %-24s|\n", "ID", "NAMA BARANG","JUMLAH", "KEUNTUNGAN" , "WAKTU");
-        baris(2, 0);
+        baris(1, 0);
         int penanda=0;
         while ( !feof( fTransaksi ) ) { 
             fread( &dataTransaksi, sizeof( struct Riwayat ), 1, fTransaksi );
             if( dataTransaksi.id == penanda ) continue;
             penanda = dataTransaksi.id;
             if ( dataTransaksi.id != 0 ) {
-                if(dataTransaksi.tanggal <= tgl_selesai && 
+                if( dataTransaksi.tanggal <= tgl_selesai && 
                     dataTransaksi.tanggal >= tgl_mulai && 
                     dataTransaksi.bulan <= bln_selesai && 
                     dataTransaksi.bulan >= bln_mulai && 
@@ -54,12 +54,12 @@ void listTransaksi(struct Barang allBarang[], int nBarang){
         if(n == 0)
             judul("DATA KOSONG",0);
             
-        baris(2, 0);
+        baris(1, 0);
         fclose( fTransaksi );
         printf("> Modal              : %llu\n", modal);
         printf("> Pendapatan         : %llu\n", pendapatan);
         printf("> Laba               : %lli\n", laba);
-        baris(2, 0);
+        baris(1, 0);
         printf("Apa yang ingin anda lakukan (cari/keluar)? ");
         char command[7];
         scanf( "%s",command);

@@ -2,23 +2,23 @@
 
 int copyBarang(struct Barang allBarang[]){
     int n=1;
-    FILE *fp;
+    FILE *fBarang;
     struct Barang dataBarang = {0,"",0,0,0,0,0,0};
 
-    if ( ( fp = fopen( "barang.dat", "rb" ) ) == NULL ) {
+    if ( ( fBarang = fopen( "barang.dat", "rb" ) ) == NULL ) {
         printf( "File could not be opened.\n" );
         return 0;
     }
     int penanda=0;
-    while ( !feof( fp ) ) { 
-        fread( &dataBarang, sizeof( struct Barang ), 1, fp );
+    while ( !feof( fBarang ) ) { 
+        fread( &dataBarang, sizeof( struct Barang ), 1, fBarang );
         if(dataBarang.id==penanda)continue;
             penanda=dataBarang.id;
             if ( dataBarang.id != 0 ) {
                 allBarang[n].id=dataBarang.id;
                 strcpy(allBarang[n].nama,dataBarang.nama);
                 allBarang[n].harga      = dataBarang.harga;
-                allBarang[n].harga_jual      = dataBarang.harga_jual;
+                allBarang[n].harga_jual = dataBarang.harga_jual;
                 allBarang[n].stok       = dataBarang.stok;
                 allBarang[n].modal      = dataBarang.modal;
                 allBarang[n].pendapatan = dataBarang.pendapatan;
@@ -26,7 +26,7 @@ int copyBarang(struct Barang allBarang[]){
                 n++;
             }
     }
-    fclose( fp );
+    fclose( fBarang );
     return n;
 }
 
@@ -37,14 +37,14 @@ void tampilBarang(int showAll){
         printf( "file tidak bisa dibuka");
         return;
     }
-    baris(2, showAll);
+    baris(1, showAll);
     judul("DATA BARANG", showAll);
-    baris(2, showAll);
+    baris(1, showAll);
     if(showAll == 1)
         printf( "|  %-4s|  %-24s|  %-15s|  %-16s|  %-10s|  %-7s|  %-7s|\n", "ID", "NAMA BARANG", "HARGA", "HARGA JUAL", "STOK", "MODAL", "PENDAPATAN" );
     else
         printf( "|  %-4s|  %-24s|  %-15s|  %-16s|  %-10s|\n", "ID", "NAMA BARANG","HARGA", "HARGA JUAL", "STOK" );
-    baris(2, showAll);
+    baris(1, showAll);
     while(fread(&dataBarang, sizeof(struct Barang), 1, fBarang))
         if ( dataBarang.id != 0 ){
             if(showAll == 1)
@@ -55,7 +55,7 @@ void tampilBarang(int showAll){
         }
     if(n==0)
         judul("DATA KOSONG", showAll);
-    baris(2, showAll);
+    baris(1, showAll);
     fclose(fBarang);
 }
 
@@ -78,7 +78,7 @@ void kalkulasiPendapatan(struct Barang allBarang[], int nBarang){
     }
     int i;
 	for(i=1;i < nBarang;i++){
-        if(allBarang[i].nBelanja==0)continue;
+        if(allBarang[i].nBelanja == 0)continue;
         int penanda=0;
         while ( !feof( fBarang ) ) { 
 
@@ -89,7 +89,7 @@ void kalkulasiPendapatan(struct Barang allBarang[], int nBarang){
             if(allBarang[i].id == dataBarang.id){
                 dataBarang.stok         -= allBarang[i].nBelanja;
                 dataBarang.pendapatan   += (allBarang[i].nBelanja*dataBarang.harga_jual);
-                allBarang[i].nBelanja   = 0;
+                allBarang[i].nBelanja    = 0;
                 fseek( fBarang, ( dataBarang.id - 1 ) * sizeof( struct Barang ), SEEK_SET );         
                 fwrite( &dataBarang, sizeof( struct Barang ), 1, fBarang );
                 break;
@@ -130,26 +130,26 @@ void riwayatTransaksi(struct Barang allBarang[],int nBarang){
     fclose( fBarang );
 }
 
-void cetakStruk(struct Barang allBarang[], int bnykdata, unsigned long long total, unsigned long long uang, unsigned long long kembali){
+void cetakStruk(struct Barang allBarang[], int nBarang, unsigned long long total, unsigned long long uang, unsigned long long kembali){
     time_t t; 
     time(&t);
 	FILE *struk;
     struk = fopen("struk.txt", "w");
     int i;
-    fprintf(struk,"=========================================================\n");
-    fprintf(struk,"|                      TOKO HASAN                       |\n");
-    fprintf(struk,"=========================================================\n");
+    fprintf(struk,"----------------------------------------------------------\n");
+    fprintf(struk,"|                    TOSERBA SEMBARANG                   |\n");
+    fprintf(struk,"----------------------------------------------------------\n");
     fprintf(struk, "| %-20s | %-10s | %-18s|\n", "Nama", "Jumlah", "Harga");
-    fprintf(struk,"=========================================================\n");
-    for(i=1;i < bnykdata;i++){
-        if(allBarang[i].nBelanja == 0)continue;
+    fprintf(struk,"----------------------------------------------------------\n");
+    for(i=1;i < nBarang;i++){
+        if(allBarang[i].nBelanja == 0) continue;
         fprintf(struk, "| %-20s | %-10llu | %-18llu|\n", allBarang[i].nama, allBarang[i].nBelanja, allBarang[i].harga_jual * allBarang[i].nBelanja);
     }
-    fprintf(struk,"=========================================================\n");
+    fprintf(struk,"----------------------------------------------------------\n");
     fprintf(struk,"| Total   : %llu\n",total);
     fprintf(struk,"| Uang    : %llu\n",uang);
     fprintf(struk,"| Kembali : %llu\n",kembali);
-    fprintf(struk,"=========================================================\n");
+    fprintf(struk,"----------------------------------------------------------\n");
     fprintf(struk,"Terima Kasih , %s",ctime(&t));
     fclose(struk);
 }

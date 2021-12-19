@@ -20,15 +20,15 @@ int main(){
     {
         system("cls");
         int nBarang = copyBarang(allBarang);
-        printf("=======================================\n");
+        printf("---------------------------------------\n");
         printf("|          TOSERBA SEMBARANG          |\n");
-        printf("=======================================\n");
+        printf("---------------------------------------\n");
         printf("| 1. Data Barang                      |\n");
         printf("| 2. Kasir                            |\n");
         printf("| 3. Riwayat Transaksi                |\n");
         printf("| 4. Laporan Keuangan                 |\n");
         printf("| 5. Keluar                           |\n");
-        printf("=======================================\n"); 
+        printf("---------------------------------------\n"); 
         printf("Masukkan kode menu: ");
         scanf("%d", &menu);
         switch (menu)

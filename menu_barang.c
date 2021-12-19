@@ -12,7 +12,6 @@ void updBarang();
 void menuBarang(){
     while (1)
     {
-        int n;
         char command[10];
         system("cls");
         tampilBarang(0);
@@ -37,23 +36,20 @@ void menuBarang(){
 }
 
 void addBarang(){
-    char out;
-    fBarang = fopen("barang.dat", "rb+");
-    if(fBarang == NULL){
-        printf("file tidak bisa dibuka");
-        return;
-    }
     while(1)
     {
+        char out;
+        fBarang = fopen("barang.dat", "rb+");
+        if(fBarang == NULL){
+            printf("file tidak bisa dibuka");
+            return;
+        }
         int nBarang;
         struct Barang allBarang[]={};
         nBarang = copyBarang(allBarang);
         while(1){
             printf("Masukkan ID Barang     : ");
             scanf( "%d", &dataBarang.id);
-            if(dataBarang.id==0){
-                break;
-            }
             int index;
             index=cariBarang(allBarang,dataBarang.id,nBarang);
             if(index){
@@ -73,7 +69,7 @@ void addBarang(){
         scanf("%d", &dataBarang.stok);
         dataBarang.modal      = dataBarang.stok * dataBarang.harga;
         dataBarang.pendapatan = 0;
-        dataBarang.nBelanja = 0;
+        dataBarang.nBelanja   = 0;
         fseek( fBarang, ( dataBarang.id - 1 ) * sizeof( struct Barang ), SEEK_SET );
         fwrite( &dataBarang, sizeof( struct Barang ), 1, fBarang );
         if(fwrite != 0)
@@ -82,10 +78,10 @@ void addBarang(){
             printf( "gagal menyimpan perubahan !\n");
         printf("Apakah anda ingin keluar (Y/N) ? ");
         scanf( " %c", &out);
+        fclose(fBarang);
         if(out == 'y' || out == 'Y')
             break;
     }
-    fclose(fBarang);
 }
 
 void restok(){
@@ -103,9 +99,6 @@ void restok(){
         while(1){
             printf( "Masukkan ID Barang          : " );
             scanf( "%d", &dataBarang.id );
-            if(dataBarang.id==0){
-                break;
-            }
             int index;
             index=cariBarang(allBarang,dataBarang.id,nBarang);
             if(!index){
@@ -162,9 +155,6 @@ void delBarang(){
         while(1){
             printf("Masukkan ID Barang yang ingin dihapus : ");
             scanf("%d",&dataBarang.id);
-            if(dataBarang.id==0){
-                break;
-            }
             int index;
             index=cariBarang(allBarang,dataBarang.id,nBarang);
             if(!index){
@@ -211,9 +201,6 @@ void updBarang(){
         while(1){
             printf("Masukkan ID Barang yang ingin diedit : ");
             scanf("%d",&dataBarang.id);
-            if(dataBarang.id==0){
-                break;
-            }
             int index;
             index=cariBarang(allBarang,dataBarang.id,nBarang);
             if(!index){

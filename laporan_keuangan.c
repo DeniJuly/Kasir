@@ -7,21 +7,20 @@
 void laporanKeuangan(){
     FILE *fBarang;
     struct Barang dataBarang = { 0, "", 0,0,0,0,0,0};
-    unsigned long long modal=0,  pendapatan=0;
-    long long int laba;
+    unsigned long long modal=0,  pendapatan=0, laba = 0;
     int penanda=0, n=0;
 
     system("cls");
-    baris(2, 1);
+    baris(1, 1);
     judul("DATA BARANG", 1);
-    baris(2, 1);
+    baris(1, 1);
 
     if ( ( fBarang = fopen( "barang.dat", "rb+" ) ) == NULL ) {
         printf( "File tidak bisa dibuka.\n" );
     }
 
     printf( "|  %-4s|  %-14s|  %-14s|  %-14s|  %-8s|  %-14s|  %-14s|\n", "ID", "NAMA BARANG","HARGA","HARGA JUAL", "STOK","MODAL","PENDAPATAN" );
-    baris(2,1);
+    baris(1,1);
 
     while ( !feof( fBarang ) ) { 
         fread( &dataBarang, sizeof( struct Barang ), 1, fBarang );
@@ -39,15 +38,15 @@ void laporanKeuangan(){
         judul("DATA KOSONG", 1);
 
     fclose( fBarang );
-    baris(2, 1);
+    baris(1, 1);
 
     printf("> Modal/Pengeluaran \t: %llu\n", modal);
     printf("> Pendapatan \t\t: %llu\n", pendapatan);
     laba = pendapatan - modal;
     if(laba < 0)
-        printf("> Rugi \t\t\t: %lld\n",laba*-1);
+        printf("> Rugi \t\t\t: %lld\n",laba);
     else
-        printf("> Untung \t\t: %lld\n",laba);
+        printf("> Laba \t\t: %lld\n",laba);
 
     getchar();
     printf("Klik enter untuk keluar.");
