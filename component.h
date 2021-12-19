@@ -6,6 +6,7 @@ struct Barang
     char nama[50];
     int stok;
     unsigned long long harga;
+    unsigned long long harga_jual;
     unsigned long long modal;
     unsigned long long pendapatan;
     int nBelanja;
@@ -20,8 +21,10 @@ struct Riwayat
 	int tanggal;
 	int bulan;
 	int tahun;
+    unsigned long long keuntungan;
 };
 
 void tampilBarang(int showAll);
 int copyBarang(struct Barang allBarang[]);
 void laporanKeuangan();
+int cariBarang(struct Barang allBarang[],int id,int nBarang);

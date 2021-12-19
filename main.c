@@ -21,7 +21,7 @@ int main(){
         system("cls");
         int nBarang = copyBarang(allBarang);
         printf("=======================================\n");
-        printf("|              TOKO HASAN             |\n");
+        printf("|          TOSERBA SEMBARANG          |\n");
         printf("=======================================\n");
         printf("| 1. Data Barang                      |\n");
         printf("| 2. Kasir                            |\n");

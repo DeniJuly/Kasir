@@ -27,7 +27,7 @@ void kasir(struct Barang allBarang[], int nBarang){
                 allBarang[index].nBelanja = 0;
                 continue;
             }
-            total= total + (allBarang[index].harga * allBarang[index].nBelanja);
+            total= total + (allBarang[index].harga_jual * allBarang[index].nBelanja);
         }
         baris(1, 0);
         printf("Total Belanja     : %llu\n",total);

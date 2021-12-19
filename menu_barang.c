@@ -1,7 +1,7 @@
 #include <stdio.h>
 
 FILE *fBarang;
-struct Barang dataBarang =  {0,"",0,0,0,0,0};
+struct Barang dataBarang =  {0,"",0,0,0,0,0,0};
 
 void addBarang();
 void restok();
@@ -45,14 +45,32 @@ void addBarang(){
     }
     while(1)
     {
-        printf("Masukkan ID Barang    : ");
-        scanf( "%d", &dataBarang.id);
-        printf("Masukkan Nama Barang  : ");
-        scanf("%s", dataBarang.nama);
-        printf( "Masukkan Harga Barang : ");
-        scanf( "%llu", &dataBarang.harga);
-        printf("Masukkan Stok Barang  : ");
-        scanf( "%d", &dataBarang.stok);
+        int nBarang;
+        struct Barang allBarang[]={};
+        nBarang = copyBarang(allBarang);
+        while(1){
+            printf("Masukkan ID Barang     : ");
+            scanf( "%d", &dataBarang.id);
+            if(dataBarang.id==0){
+                break;
+            }
+            int index;
+            index=cariBarang(allBarang,dataBarang.id,nBarang);
+            if(index){
+                printf("ID Barang sudah digunakan.\n");
+                continue;
+            } else {
+                break;
+            }
+        }
+        printf("Masukkan Nama Barang   : ");
+        scanf(" %[^\n]s", dataBarang.nama);
+        printf("Masukkan Harga Barang  : ");
+        scanf("%llu", &dataBarang.harga);
+        printf("Masukkan Harga Jual    : ");
+        scanf("%llu", &dataBarang.harga_jual);
+        printf("Masukkan Stok Barang   : ");
+        scanf("%d", &dataBarang.stok);
         dataBarang.modal      = dataBarang.stok * dataBarang.harga;
         dataBarang.pendapatan = 0;
         dataBarang.nBelanja = 0;
@@ -82,8 +100,21 @@ void restok(){
     {
         struct Barang allBarang[]={};
         nBarang = copyBarang(allBarang);
-        printf( "Masukkan ID Barang          : " );
-        scanf( "%d", &dataBarang.id );
+        while(1){
+            printf( "Masukkan ID Barang          : " );
+            scanf( "%d", &dataBarang.id );
+            if(dataBarang.id==0){
+                break;
+            }
+            int index;
+            index=cariBarang(allBarang,dataBarang.id,nBarang);
+            if(!index){
+                printf("ID Barang tidak ditemukan.\n");
+                continue;
+            } else {
+                break;
+            }
+        }
         
         printf("Tambah Berapa Stok Barang   : ");
         scanf( "%d", &dataBarang.stok );
@@ -91,6 +122,7 @@ void restok(){
             if(dataBarang.id==allBarang[i].id){
                 strcpy(dataBarang.nama, allBarang[i].nama);
                 dataBarang.harga        = allBarang[i].harga;
+                dataBarang.harga_jual   = allBarang[i].harga_jual;
                 dataBarang.modal        = allBarang[i].modal + (dataBarang.stok * dataBarang.harga);
                 dataBarang.stok        += allBarang[i].stok;
                 dataBarang.pendapatan   = allBarang[i].pendapatan;
@@ -124,11 +156,28 @@ void delBarang(){
     char out;
     while(1)
     {
-        printf("Masukkan ID Barang yang ingin dihapus : ");
-        scanf("%d",&dataBarang.id);
+        int nBarang;
+        struct Barang allBarang[]={};
+        nBarang = copyBarang(allBarang);
+        while(1){
+            printf("Masukkan ID Barang yang ingin dihapus : ");
+            scanf("%d",&dataBarang.id);
+            if(dataBarang.id==0){
+                break;
+            }
+            int index;
+            index=cariBarang(allBarang,dataBarang.id,nBarang);
+            if(!index){
+                printf("ID Barang tidak ditemukan.\n");
+                continue;
+            } else {
+                break;
+            }
+        }
         fseek( fBarang, ( dataBarang.id - 1 ) * sizeof( struct Barang ), SEEK_SET );         
         dataBarang.id           = 0;
         dataBarang.harga        = 0;
+        dataBarang.harga_jual   = 0;
         dataBarang.modal        = 0;
         dataBarang.pendapatan   = 0;
         dataBarang.stok         = 0;
@@ -153,34 +202,57 @@ void updBarang(){
         printf("file tidak bisa dibuka");
         return;
     }
-    char out, command[6];
-    int ID, nBarang;
+    char out;
+    int ID, nBarang, menu;
     while(1)
     {
         struct Barang allBarang[]={};
         nBarang = copyBarang(allBarang);
-        printf("Masukkan ID Barang yang ingin diedit : ");
-        scanf("%d",&dataBarang.id);
+        while(1){
+            printf("Masukkan ID Barang yang ingin diedit : ");
+            scanf("%d",&dataBarang.id);
+            if(dataBarang.id==0){
+                break;
+            }
+            int index;
+            index=cariBarang(allBarang,dataBarang.id,nBarang);
+            if(!index){
+                printf("ID Barang tidak ditemukan.\n");
+                continue;
+            } else {
+                break;
+            }
+        }
         int i;
         for(i=1;i<nBarang;i++){ 
             if(dataBarang.id==allBarang[i].id){
                 dataBarang.stok         =allBarang[i].stok; 
                 strcpy(dataBarang.nama,allBarang[i].nama);
                 dataBarang.harga        =allBarang[i].harga;
+                dataBarang.harga_jual   =allBarang[i].harga_jual;
                 dataBarang.modal        =allBarang[i].modal;
                 dataBarang.pendapatan   =allBarang[i].pendapatan;
                 dataBarang.nBelanja     =allBarang[i].nBelanja;
                 break;
             }
         }
-        printf("What do you want to edit (nama/harga)? ");
-        scanf("%s", command);
-        if(strcmp(command,"nama")==0){
+        printf("Apa yang ingin anda edit? \n");
+        printf("1. Nama Barang \n");
+        printf("2. Harga Barang \n");
+        printf("3. Harga Jual \n");
+        printf("Masukkan Kode Menu: ");
+        scanf("%d", &menu);
+        if(menu==1){
             printf( "Masukkan Nama Barang baru : " );
-            scanf( "%s", dataBarang.nama );
-        } else {
+            scanf( " %[^\n]s", dataBarang.nama );
+        } else if(menu==2) {
             printf( "Masukkan Harga Barang baru : " );
             scanf( "%llu", &dataBarang.harga );
+        } else if(menu==3){
+            printf( "Masukkan Harga Jual baru : " );
+            scanf( "%llu", &dataBarang.harga_jual );
+        } else {
+            printf("Kode menu tidak diketahui.");
         }
 
         fseek( fBarang, ( dataBarang.id - 1 ) * sizeof( struct Barang ), SEEK_SET );
