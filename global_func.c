@@ -6,26 +6,26 @@ int copyBarang(struct Barang allBarang[]){
     struct Barang dataBarang = {0,"",0,0,0,0,0,0};
 
     if ( ( fBarang = fopen( "barang.dat", "rb" ) ) == NULL ) {
-        printf( "File could not be opened.\n" );
+        printf( "File tidak bisa dibuka.\n" );
         return 0;
     }
     int penanda=0;
-    while ( !feof( fBarang ) ) { 
-        fread( &dataBarang, sizeof( struct Barang ), 1, fBarang );
+    while ( fread( &dataBarang, sizeof( struct Barang ), 1, fBarang ) ) { 
         if(dataBarang.id==penanda)continue;
-            penanda=dataBarang.id;
-            if ( dataBarang.id != 0 ) {
-                allBarang[n].id=dataBarang.id;
-                strcpy(allBarang[n].nama,dataBarang.nama);
-                allBarang[n].harga      = dataBarang.harga;
-                allBarang[n].harga_jual = dataBarang.harga_jual;
-                allBarang[n].stok       = dataBarang.stok;
-                allBarang[n].modal      = dataBarang.modal;
-                allBarang[n].pendapatan = dataBarang.pendapatan;
-                allBarang[n].nBelanja   = dataBarang.nBelanja;
-                n++;
-            }
+        penanda=dataBarang.id;
+        if ( dataBarang.id != 0 ) {
+            allBarang[n].id=dataBarang.id;
+            strcpy(allBarang[n].nama,dataBarang.nama);
+            allBarang[n].harga      = dataBarang.harga;
+            allBarang[n].harga_jual = dataBarang.harga_jual;
+            allBarang[n].stok       = dataBarang.stok;
+            allBarang[n].modal      = dataBarang.modal;
+            allBarang[n].pendapatan = dataBarang.pendapatan;
+            allBarang[n].nBelanja   = dataBarang.nBelanja;
+            n++;
+        }
     }
+    
     fclose( fBarang );
     return n;
 }

@@ -11,9 +11,6 @@
 #include "riwayat_transaksi.c"
 #include "laporan_keuangan.c"
 
-struct Barang allBarang[]={};
-
-
 int main(){
     int menu;
     while (1)

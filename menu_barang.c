@@ -38,15 +38,14 @@ void menuBarang(){
 void addBarang(){
     while(1)
     {
+        int nBarang;
+        nBarang = copyBarang(allBarang);
         char out;
         fBarang = fopen("barang.dat", "rb+");
         if(fBarang == NULL){
             printf("file tidak bisa dibuka");
             return;
         }
-        int nBarang;
-        struct Barang allBarang[]={};
-        nBarang = copyBarang(allBarang);
         while(1){
             printf("Masukkan ID Barang     : ");
             scanf( "%d", &dataBarang.id);
@@ -94,7 +93,6 @@ void restok(){
     }
     while (1)
     {
-        struct Barang allBarang[]={};
         nBarang = copyBarang(allBarang);
         while(1){
             printf( "Masukkan ID Barang          : " );
@@ -150,7 +148,6 @@ void delBarang(){
     while(1)
     {
         int nBarang;
-        struct Barang allBarang[]={};
         nBarang = copyBarang(allBarang);
         while(1){
             printf("Masukkan ID Barang yang ingin dihapus : ");
@@ -196,7 +193,6 @@ void updBarang(){
     int ID, nBarang, menu;
     while(1)
     {
-        struct Barang allBarang[]={};
         nBarang = copyBarang(allBarang);
         while(1){
             printf("Masukkan ID Barang yang ingin diedit : ");
