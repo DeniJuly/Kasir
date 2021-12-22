@@ -16,7 +16,6 @@ int main(){
     while (1)
     {
         system("cls");
-        int nBarang = copyBarang(allBarang);
         printf("---------------------------------------\n");
         printf("|          TOSERBA SEMBARANG          |\n");
         printf("---------------------------------------\n");
@@ -34,10 +33,10 @@ int main(){
             menuBarang();
             break;
         case 2:
-            kasir(allBarang, nBarang);
+            kasir();
             break;
         case 3:
-            listTransaksi(allBarang, nBarang);
+            listTransaksi();
             break;
         case 4:
             laporanKeuangan();

@@ -24,7 +24,7 @@ int copyBarang(struct Barang allBarang[]){
             allBarang[n].nBelanja   = dataBarang.nBelanja;
             n++;
         }
-    }
+    }    
     
     fclose( fBarang );
     return n;

@@ -1,0 +1,2 @@
+
+        int nBarang = copyBarang(allBarang);

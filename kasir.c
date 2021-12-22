@@ -1,14 +1,16 @@
 #include <stdio.h>
 
-void kasir(struct Barang allBarang[], int nBarang){
+void kasir(){
     char out;
 	do {
         system("cls");
+        struct Barang allBarang[]={};
+        int nBarang = copyBarang(allBarang);
         tampilBarang(0);
         printf("Masukkan ID 0 jika sudah tidak ada barang yang dibeli!\n");
         long long int total = 0;
         while(1){
-            int ID;
+            int ID, nBelanja;
             printf("Masukkan ID barang     : ");
             scanf("%d", &ID);
             if(ID==0){
@@ -21,7 +23,8 @@ void kasir(struct Barang allBarang[], int nBarang){
                 continue;
             }
             printf("Masukkan banyak barang : ");
-            scanf("%d",&allBarang[index].nBelanja);
+            scanf("%d",&nBelanja);
+            allBarang[index].nBelanja += nBelanja;
             if(allBarang[index].nBelanja>allBarang[index].stok){
                 printf("Barang Tidak Mencukupi.\n");
                 allBarang[index].nBelanja = 0;

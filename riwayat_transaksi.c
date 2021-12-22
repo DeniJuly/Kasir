@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-void listTransaksi(struct Barang allBarang[], int nBarang){
+void listTransaksi(){
     int tgl_mulai   =   0,
         tgl_selesai =   32,
         bln_mulai   =   0,
@@ -8,6 +8,9 @@ void listTransaksi(struct Barang allBarang[], int nBarang){
         th_mulai    =   2000,
         th_selesai  =   2050;
 	while (1){
+        struct Barang allBarang[]={};
+        int nBarang;
+        nBarang = copyBarang(allBarang);
         int n=0;
         system("cls");
         baris(1, 0);
