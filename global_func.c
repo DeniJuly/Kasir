@@ -11,8 +11,8 @@ int copyBarang(struct Barang allBarang[]){
     }
     int penanda=0;
     while ( fread( &dataBarang, sizeof( struct Barang ), 1, fBarang ) ) { 
-        if(dataBarang.id==penanda)continue;
-        penanda=dataBarang.id;
+        if(dataBarang.id == penanda)continue;
+        penanda = dataBarang.id;
         if ( dataBarang.id != 0 ) {
             allBarang[n].id=dataBarang.id;
             strcpy(allBarang[n].nama,dataBarang.nama);
@@ -32,7 +32,7 @@ int copyBarang(struct Barang allBarang[]){
 
 void tampilBarang(int showAll){
     int n = 0;
-    fBarang = fopen("barang.dat", "r");
+    fBarang = fopen("barang.dat", "rb");
     if(fBarang == NULL){
         printf( "file tidak bisa dibuka");
         return;
@@ -45,7 +45,7 @@ void tampilBarang(int showAll){
     else
         printf( "|  %-4s|  %-24s|  %-15s|  %-16s|  %-10s|\n", "ID", "NAMA BARANG","HARGA", "HARGA JUAL", "STOK" );
     baris(1, showAll);
-    while(fread(&dataBarang, sizeof(struct Barang), 1, fBarang))
+    while( fread( &dataBarang, sizeof( struct Barang ), 1, fBarang ) )
         if ( dataBarang.id != 0 ){
             if(showAll == 1)
                 printf( "|  %-4d|  %-24s|  %-15llu|  %-16llu|  %-10d|  %-5llu|  %-5llu|\n", dataBarang.id, dataBarang.nama, dataBarang.harga, dataBarang.harga_jual, dataBarang.stok, dataBarang.modal, dataBarang.pendapatan);
