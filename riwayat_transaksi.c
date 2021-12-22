@@ -1,4 +1,5 @@
 #include <stdio.h>
+struct Barang semuaBarang[]={};
 
 void listTransaksi(){
     int tgl_mulai   =   0,
@@ -8,9 +9,8 @@ void listTransaksi(){
         th_mulai    =   2000,
         th_selesai  =   2050;
 	while (1){
-        struct Barang allBarang[]={};
         int nBarang;
-        nBarang = copyBarang(allBarang);
+        nBarang = copyBarang(semuaBarang);
         int n=0;
         system("cls");
         baris(1, 0);
@@ -18,7 +18,7 @@ void listTransaksi(){
         baris(1, 0);
         int i;
         for(i=1;i<nBarang;i++){
-            allBarang[i].nBelanja=0;
+            semuaBarang[i].nBelanja=0;
         }
         unsigned long long modal = 0, pendapatan = 0, laba = 0;
         FILE *fTransaksi;
@@ -42,11 +42,11 @@ void listTransaksi(){
                     dataTransaksi.tahun <= th_selesai && 
                     dataTransaksi.tahun >= th_mulai
                 ){
-                    int index = cariBarang(allBarang, dataTransaksi.id, nBarang);
+                    int index = cariBarang(semuaBarang, dataTransaksi.id, nBarang);
                     if(index){
-                        modal       += allBarang[index].modal;
-                        pendapatan  += allBarang[index].pendapatan;
-                        laba        += allBarang[index].pendapatan - allBarang[index].modal;
+                        modal       += semuaBarang[index].modal;
+                        pendapatan  += semuaBarang[index].pendapatan;
+                        laba        += semuaBarang[index].pendapatan - semuaBarang[index].modal;
                     }
                     printf( "|  %-4d| %-19s| %-9d| %-16d| %-24s", dataTransaksi.id, dataTransaksi.nama, dataTransaksi.nBelanja, dataTransaksi.keuntungan, dataTransaksi.time);
                     n++;

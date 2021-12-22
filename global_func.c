@@ -21,7 +21,7 @@ int copyBarang(struct Barang allBarang[]){
             allBarang[n].stok       = dataBarang.stok;
             allBarang[n].modal      = dataBarang.modal;
             allBarang[n].pendapatan = dataBarang.pendapatan;
-            allBarang[n].nBelanja   = dataBarang.nBelanja;
+            allBarang[n].nBelanja   = 0;
             n++;
         }
     }    

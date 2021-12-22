@@ -1,11 +1,11 @@
 #include <stdio.h>
+struct Barang kasirBarang[]={};
 
 void kasir(){
     char out;
 	do {
         system("cls");
-        struct Barang allBarang[]={};
-        int nBarang = copyBarang(allBarang);
+        int nBarang = copyBarang(kasirBarang);
         tampilBarang(0);
         printf("Masukkan ID 0 jika sudah tidak ada barang yang dibeli!\n");
         long long int total = 0;
@@ -17,20 +17,20 @@ void kasir(){
                 break;
             }
             int index;
-            index=cariBarang(allBarang,ID,nBarang);
+            index=cariBarang(kasirBarang,ID,nBarang);
             if(!index){
                 printf("ID barang tidak ditemukan.\n");
                 continue;
             }
             printf("Masukkan banyak barang : ");
             scanf("%d",&nBelanja);
-            allBarang[index].nBelanja += nBelanja;
-            if(allBarang[index].nBelanja>allBarang[index].stok){
+            kasirBarang[index].nBelanja += nBelanja;
+            if(kasirBarang[index].nBelanja>kasirBarang[index].stok){
                 printf("Barang Tidak Mencukupi.\n");
-                allBarang[index].nBelanja = 0;
+                kasirBarang[index].nBelanja = 0;
                 continue;
             }
-            total= total + (allBarang[index].harga_jual * allBarang[index].nBelanja);
+            total= total + (kasirBarang[index].harga_jual * nBelanja);
         }
         baris(1, 0);
         printf("Total Belanja     : %llu\n",total);
@@ -52,9 +52,9 @@ void kasir(){
             kembali=uang-total;
             printf("Kembalian         : %lld\n",kembali);
             getchar();
-            cetakStruk(allBarang,nBarang,total,uang,kembali);
-            riwayatTransaksi(allBarang, nBarang);
-            kalkulasiPendapatan(allBarang, nBarang);
+            cetakStruk(kasirBarang,nBarang,total,uang,kembali);
+            riwayatTransaksi(kasirBarang, nBarang);
+            kalkulasiPendapatan(kasirBarang, nBarang);
         }
         
         printf("Transaksi lain (Y/N) ? ");

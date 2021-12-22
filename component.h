@@ -23,6 +23,7 @@ struct Riwayat
 	int tahun;
     unsigned long long keuntungan;
 };
+struct Barang allBarang[]={};
 
 void tampilBarang(int showAll);
 int copyBarang(struct Barang allBarang[]);

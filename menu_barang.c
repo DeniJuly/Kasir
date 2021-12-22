@@ -38,7 +38,6 @@ void menuBarang(){
 void addBarang(){
     while(1)
     {
-        struct Barang allBarang[]={};
         int nBarang;
         nBarang = copyBarang(allBarang);
         char out;
@@ -94,7 +93,6 @@ void restok(){
     }
     while (1)
     {
-        struct Barang allBarang[]={};
         nBarang = copyBarang(allBarang);
         while(1){
             printf( "Masukkan ID Barang          : " );
@@ -149,7 +147,6 @@ void delBarang(){
     char out;
     while(1)
     {
-        struct Barang allBarang[]={};
         int nBarang;
         nBarang = copyBarang(allBarang);
         while(1){
@@ -196,7 +193,6 @@ void updBarang(){
     int ID, nBarang, menu;
     while(1)
     {
-        struct Barang allBarang[]={};
         nBarang = copyBarang(allBarang);
         while(1){
             printf("Masukkan ID Barang yang ingin diedit : ");
