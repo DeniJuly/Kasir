@@ -30,7 +30,7 @@ void kasir(){
                 kasirBarang[index].nBelanja = 0;
                 continue;
             }
-            total= total + (kasirBarang[index].harga_jual * nBelanja);
+            total = total + (kasirBarang[index].harga_jual * nBelanja);
         }
         baris(1, 0);
         printf("Total Belanja     : %llu\n",total);

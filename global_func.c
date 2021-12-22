@@ -78,23 +78,17 @@ void kalkulasiPendapatan(struct Barang allBarang[], int nBarang){
     }
     int i;
 	for(i=1;i < nBarang;i++){
-        if(allBarang[i].nBelanja == 0)continue;
-        int penanda=0;
-        while ( !feof( fBarang ) ) { 
-
-            fread( &dataBarang, sizeof( struct Barang ), 1, fBarang );
-            if(dataBarang.id == penanda) continue;
-            penanda = dataBarang.id;
-
-            if(allBarang[i].id == dataBarang.id){
-                dataBarang.stok         -= allBarang[i].nBelanja;
-                dataBarang.pendapatan   += (allBarang[i].nBelanja*dataBarang.harga_jual);
-                allBarang[i].nBelanja    = 0;
-                fseek( fBarang, ( dataBarang.id - 1 ) * sizeof( struct Barang ), SEEK_SET );         
-                fwrite( &dataBarang, sizeof( struct Barang ), 1, fBarang );
-                break;
-            }
-        }
+        if(allBarang[i].nBelanja == 0) continue;
+        dataBarang.id            = allBarang[i].id;
+        strcpy(dataBarang.nama,allBarang[i].nama);
+        dataBarang.stok          = allBarang[i].stok - allBarang[i].nBelanja;
+        dataBarang.harga         = allBarang[i].harga;
+        dataBarang.harga_jual    = allBarang[i].harga_jual;
+        dataBarang.modal         = allBarang[i].modal;
+        dataBarang.pendapatan    = allBarang[i].pendapatan + (allBarang[i].nBelanja * allBarang[i].harga_jual);
+        allBarang[i].nBelanja    = 0;
+        fseek( fBarang, ( dataBarang.id - 1 ) * sizeof( struct Barang ), SEEK_SET );         
+        fwrite( &dataBarang, sizeof( struct Barang ), 1, fBarang );
     }
     fclose( fBarang );
 }

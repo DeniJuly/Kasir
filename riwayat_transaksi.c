@@ -27,7 +27,7 @@ void listTransaksi(){
         if ( ( fTransaksi = fopen( "transaksi.dat", "rb" ) ) == NULL ) {
             printf( "File tidak bisa dibuka.\n" );
         }
-        printf( "|  %-4s| %-19s| %-9s| %-16s| %-24s|\n", "ID", "NAMA BARANG","JUMLAH", "KEUNTUNGAN" , "WAKTU");
+        printf( "|  %-4s| %-19s| %-9s| %-16s| %-25s|\n", "ID", "NAMA BARANG","JUMLAH", "KEUNTUNGAN" , "WAKTU");
         baris(1, 0);
         int penanda=0;
         while ( !feof( fTransaksi ) ) { 
@@ -46,7 +46,6 @@ void listTransaksi(){
                     if(index){
                         modal       += semuaBarang[index].modal;
                         pendapatan  += semuaBarang[index].pendapatan;
-                        laba        += semuaBarang[index].pendapatan - semuaBarang[index].modal;
                     }
                     printf( "|  %-4d| %-19s| %-9d| %-16d| %-24s", dataTransaksi.id, dataTransaksi.nama, dataTransaksi.nBelanja, dataTransaksi.keuntungan, dataTransaksi.time);
                     n++;
@@ -61,7 +60,7 @@ void listTransaksi(){
         fclose( fTransaksi );
         printf("> Modal              : %llu\n", modal);
         printf("> Pendapatan         : %llu\n", pendapatan);
-        printf("> Laba               : %lli\n", laba);
+        printf("> Laba               : %lli\n", pendapatan - modal);
         baris(1, 0);
         printf("Apa yang ingin anda lakukan (cari/keluar)? ");
         char command[7];

@@ -46,7 +46,7 @@ void laporanKeuangan(){
     if(laba < 0)
         printf("> Rugi \t\t\t: %lld\n",laba);
     else
-        printf("> Laba \t\t: %lld\n",laba);
+        printf("> Laba \t\t\t: %lld\n",laba);
 
     getchar();
     printf("Klik enter untuk keluar.");
