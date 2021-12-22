@@ -1,5 +1,5 @@
 #include <stdio.h>
-struct Barang kasirBarang[]={};
+struct Barang kasirBarang[10000]={};
 
 void kasir(){
     char out;

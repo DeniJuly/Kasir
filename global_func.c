@@ -32,7 +32,7 @@ int copyBarang(struct Barang allBarang[]){
 
 void tampilBarang(int showAll){
     int n = 0;
-    fBarang = fopen("barang.dat", "rb");
+    fBarang = fopen("barang.dat", "rb+");
     if(fBarang == NULL){
         printf( "file tidak bisa dibuka");
         return;

@@ -1,5 +1,5 @@
 #include <stdio.h>
-struct Barang semuaBarang[]={};
+struct Barang semuaBarang[10000]={};
 
 void listTransaksi(){
     int tgl_mulai   =   0,
